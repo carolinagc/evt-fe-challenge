@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html  ng-app="etvApp"> 
+  <head>
+    <meta charset="utf-8">
+    <title>Etv-fe code challenge</title>
+    <meta name="viewport" content="width=device-width">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="js/components/angular-chart.js/dist/angular-chart.css" />
+  </head>
+  <body>
+    <div ng-controller="etvCtrl" class="container">
+
+      <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" ></canvas>
+
+      <h3> Filter by date range</h3>
+      <div class="container">
+	<!-- Date picker -->
+	<div class="span2">
+	  <p class="input-group">
+            <input type="text" style="display:inline-block; min-height:30px;" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDt" is-open="popup1.opened"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" placeholder="start date" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+	</div>
+	
+	<!-- Date picker -->
+	<div class="span2">
+	  <p class="input-group">
+            <input type="text" style="display:inline-block; min-height:30px;" class="form-control" uib-datepicker-popup="{{format}}" ng-model="endDt" is-open="popup2.opened"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" placeholder="end date" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+	</div>
+	<div class="span2">
+	  <button ng-click="filterByDate(startDt, endDt)"> Filter by date range</button>
+	</div>
+	<div class="span2">
+	  <button ng-click="reset()"> Reset filter</button>
+	</div>
+
+      </div>
+
+      <!-- Table with data from data.json file -->
+      <div class="table-responsive">
+	<table class="table">
+	  <thead>
+	    <tr>
+              <th><a ng-click="sort('city')" class="glyphicon glyphicon-sort">  City </a> </th>
+              <th><a ng-click="sort('start_date')" class="glyphicon glyphicon-sort">Start date</a></th>
+              <th><a ng-click="sort('end_date')" class="glyphicon glyphicon-sort">End date</a></th>
+              <th><a ng-click="sort('price')" class="glyphicon glyphicon-sort">Price</a></th>
+              <th><a ng-click="sort('status')" class="glyphicon glyphicon-sort">Status</a></th>
+              <th><a ng-click="sort('color')" class="glyphicon glyphicon-sort">Color</a></th>
+	    </tr>
+	  </thead>
+	    <tbody>	  
+	      <tr  ng-repeat="data in allData  | orderBy:orderProp:direction" > 
+		<td class="span2">{{data.city}}</td>
+		<td class="span2">{{data.start_date}}</td>
+		<td class="span2">{{data.end_date}}</td>
+		<td class="span2">{{data.price}}</td>
+		<td class="span2">{{data.status}}</td>
+		<td class="span2">{{data.color}}</td>
+	      </tr>
+	      </tbody>
+	</table>
+      </div>
+    </div>
+      <!-- scripts -->
+      <script src="http://code.jquery.com/jquery.js"></script>
+      <script src="js/components/bootstrap/bootstrap.min.js"></script>
+      <script src="js/components/angular/angular.min.js"></script>
+      <script src="js/components/ui-bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
+      <script src="js/components/moment/moment.js"></script>
+      <script src="js/components/Chart.js/Chart.js"></script>
+      <script src="js/components/Chart.js/Chart.min.js"></script>
+      <script src="js/components/angular-chart.js/dist/angular-chart.min.js"></script>
+
+
+      <script src="js/app.js"></script>
+      <script src="js/controllers/etvController.js"></script>
+      <script src="js/services/etvService.js"></script>
+      <script src="js/filters/by-dateRange.js"></script>
+      
+  </body>
+</html>
